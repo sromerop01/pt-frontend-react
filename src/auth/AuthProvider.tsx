@@ -22,7 +22,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         token,
         login,
         logout,
-        isAuthenticated: !!token, // Si hay token, es true
+        isAuthenticated: !!token,
       }}
     >
       {children}

@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import Logo from "../assets/Logo-color-bg.png";
 import { 
   House, 
   ChartSpline, 
@@ -10,6 +11,8 @@ import {
   Package2,
   LogOut
 } from "lucide-react";
+
+import { useAuth } from "../hooks/useAuth";
 
 const menuItems = [
   { label: "Home", icon: House, path: "/" },
@@ -23,18 +26,16 @@ const menuItems = [
 ];
 
 export const Sidebar = () => {
+
+  const { logout } = useAuth();
+
   return (
     <aside className="w-64 bg-white h-[calc(100vh-65px)] border-r border-gray-200 flex flex-col fixed left-0 top-[65px] overflow-y-auto">
       
-      {/* Header del Sidebar con Logo */}
-      <div className="h-[151px] w-full flex items-center justify-center bg-white">
-          {/* LOGO */}
-          <div className="w-full h-full bg-gradient-to-br from-purple-100 to-yellow-100 flex items-center justify-center text-slate-700 font-bold shadow-sm">
-             Logo BeKind
-          </div>
-      </div>
+      {/* Logo */}
+      <img src={Logo} alt="Logo BeKind" />
 
-      {/* 3. Navegación con NavLink para estado Activo */}
+      {/* Navegación */}
       <nav className="flex-1 mt-4">
         <ul className="space-y-1">
           {menuItems.map((item) => (
@@ -49,7 +50,7 @@ export const Sidebar = () => {
                   }
                 `}
               >
-                {/* Renderizamos el icono dinámicamente */}
+                
                 <item.icon size={20} strokeWidth={1.5} />
                 <span>{item.label}</span>
               </NavLink>
@@ -60,7 +61,8 @@ export const Sidebar = () => {
 
       {/* Footer con Cerrar Sesión */}
       <div className="p-4 mt-auto mb-4">
-        <button className="flex items-center gap-3 px-6 py-3 text-sm font-medium text-slate-600 hover:text-red-600 transition-colors w-full">
+        <button className="flex items-center gap-3 px-6 py-3 text-sm font-medium text-slate-600 hover:text-red-600 transition-colors w-full"
+          onClick={logout}>
             <LogOut size={20} />
             <span>Cerrar sesión</span>
         </button>

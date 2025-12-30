@@ -1,22 +1,28 @@
+
 const API_URL = "https://dev.api.bekindnetwork.com/api/v1";
 
 export interface ActionItem {
-  id: number | string;
+  id: string;
   name: string;
-  description?: string;
-  [key: string]: any; 
+  description: string;
+  icon: string;
+  color: string;
+  status: number;
+  createdAt: string;
 }
-
 export interface ActionsResponse {
-  data: ActionItem[];
-  totalCount?: number; 
-  totalPages?: number;
+  data: {
+    data: ActionItem[];
+    pageNumber: number;
+    pageSize: number;
+    totalElements: number;
+    totalPages: number;
+  }
 }
 
 export const actionsApi = {
   getActions: async (token: string, pageNumber: number = 1, pageSize: number = 10): Promise<ActionsResponse> => {
-    
-    // Construimos la URL con parámetros
+  
     const params = new URLSearchParams({
       pageNumber: pageNumber.toString(),
       pageSize: pageSize.toString(),
@@ -26,15 +32,15 @@ export const actionsApi = {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}` // <--- AQUÍ VA EL TOKEN
+        "Authorization": `Bearer ${token}`
       },
     });
 
     if (!response.ok) {
-      throw new Error(`Error ${response.status}: No se pudieron cargar las acciones`);
+      throw new Error("Error al cargar las acciones");
     }
 
-    const data = await response.json();
-    return data;
+    const data: ActionsResponse = await response.json();
+    return data
   },
 };
