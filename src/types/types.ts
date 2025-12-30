@@ -20,15 +20,49 @@ export type LoginInputs = {
 }
 
 export interface TabProps {
-  label: string;
-  children: ReactNode;
+  label: string
+  children: ReactNode
 }
 
 export interface TabsProps {
-  children: ReactNode;
+  children: ReactNode
 }
 
 export interface TabItemProps {
-  label: string;
-  children: ReactNode;
+  label: string
+  children: ReactNode
+}
+
+export interface ActionItem {
+  id: string
+  name: string
+  description: string
+  icon: string
+  color: string
+  status: number
+  createdAt: string
+}
+export interface ActionsResponse {
+  data: {
+    data: ActionItem[]
+    pageNumber: number
+    pageSize: number
+    totalElements: number
+    totalPages: number
+  }
+}
+
+export interface LoginPayload {
+  username: string
+  password: string
+}
+export interface LoginResponse {
+  token: string
+}
+
+export interface AuthContextType {
+  token: string | null
+  login: (token: string) => void
+  logout: () => void
+  isAuthenticated: boolean
 }

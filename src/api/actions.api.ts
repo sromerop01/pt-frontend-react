@@ -1,24 +1,7 @@
 
-const API_URL = "https://dev.api.bekindnetwork.com/api/v1"
+import type { ActionsResponse } from "../types/types"
 
-export interface ActionItem {
-  id: string
-  name: string
-  description: string
-  icon: string
-  color: string
-  status: number
-  createdAt: string
-}
-export interface ActionsResponse {
-  data: {
-    data: ActionItem[]
-    pageNumber: number
-    pageSize: number
-    totalElements: number
-    totalPages: number
-  }
-}
+const API_URL = "https://dev.api.bekindnetwork.com/api/v1"
 
 export const actionsApi = {
   getActions: async (token: string, pageNumber: number = 1, pageSize: number = 10): Promise<ActionsResponse> => {

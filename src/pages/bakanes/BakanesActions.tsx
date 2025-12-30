@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react"
 import { useAuth } from "../../hooks/useAuth"
-import { actionsApi, type ActionItem } from "../../api/actions.api"
+import { actionsApi} from "../../api/actions.api"
 import { CreateAction } from "../../components/CreateAction"
+import type { ActionItem } from "../../types/types"
 import { 
   Search, Filter, Pencil, Trash2, Eye, 
   ChevronLeft, ChevronRight, Loader2, AlertCircle, ChevronsLeft, ChevronsRight, ChevronsUpDown

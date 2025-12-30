@@ -1,12 +1,6 @@
-const API_URL = "https://dev.apinetbo.bekindnetwork.com/api";
+import type { LoginPayload, LoginResponse } from "../types/types";
 
-export interface LoginPayload {
-  username: string;
-  password: string;
-}
-export interface LoginResponse {
-  token: string;
-}
+const API_URL = "https://dev.apinetbo.bekindnetwork.com/api";
 
 export const authApi = {
   login: async (payload: LoginPayload): Promise<LoginResponse> => {
@@ -34,9 +28,9 @@ export const authApi = {
     try {
         const jsonResponse = JSON.parse(textResponse);
         if (jsonResponse.token) return jsonResponse;
-        return { token: jsonResponse };
+        return { token: jsonResponse }
     } catch {
-        return { token: textResponse };
+        return { token: textResponse }
     }
   },
 };
