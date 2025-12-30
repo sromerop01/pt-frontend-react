@@ -1,62 +1,62 @@
-import { useEffect, useState } from "react";
-import { useAuth } from "../../hooks/useAuth";
-import { actionsApi, type ActionItem } from "../../api/actions.api";
-import { CreateAction } from "../../components/CreateAction";
+import { useEffect, useState } from "react"
+import { useAuth } from "../../hooks/useAuth"
+import { actionsApi, type ActionItem } from "../../api/actions.api"
+import { CreateAction } from "../../components/CreateAction"
 import { 
   Search, Filter, Pencil, Trash2, Eye, 
-  ChevronLeft, ChevronRight, Loader2, AlertCircle, ChevronsLeft, ChevronsRight
-} from "lucide-react";
+  ChevronLeft, ChevronRight, Loader2, AlertCircle, ChevronsLeft, ChevronsRight, ChevronsUpDown
+} from "lucide-react"
 
 export const BakanesActions = () => {
-    const { token } = useAuth();
+    const { token } = useAuth()
   
     // Estados de Datos
-    const [actions, setActions] = useState<ActionItem[]>([]);
-    const [totalPages, setTotalPages] = useState(0);
-    const [totalElements, setTotalElements] = useState(0);
+    const [actions, setActions] = useState<ActionItem[]>([])
+    const [totalPages, setTotalPages] = useState(0)
+    const [totalElements, setTotalElements] = useState(0)
   
     // Estados de UI
-    const [page, setPage] = useState(1);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
-    const [pageSize, setPageSize] = useState(10);
-    const [showModal, setShowModal] = useState(false);
+    const [page, setPage] = useState(1)
+    const [loading, setLoading] = useState(true)
+    const [error, setError] = useState<string | null>(null)
+    const [pageSize, setPageSize] = useState(10)
+    const [showModal, setShowModal] = useState(false)
 
     // Cargar datos
     const fetchActions = async () => {
-        if (!token) return;
-        setLoading(true);
-        setError(null);
+        if (!token) return
+        setLoading(true)
+        setError(null)
 
         try {
-            const response = await actionsApi.getActions(token, page, pageSize);
+            const response = await actionsApi.getActions(token, page, pageSize)
 
-            const list = response.data.data || [];
-            const pages = response.data.totalPages || 0;
-            const total = response.data.totalElements || 0;
+            const list = response.data.data || []
+            const pages = response.data.totalPages || 0
+            const total = response.data.totalElements || 0
 
-            setActions(list);
-            setTotalPages(pages);
-            setTotalElements(total);
+            setActions(list)
+            setTotalPages(pages)
+            setTotalElements(total)
 
         } catch (err) {
-            console.error(err);
-        setError("No se pudieron cargar las acciones. Verifica tu conexión.");
+            //console.error(err)
+        setError("No se pudieron cargar las acciones. Verifica tu conexión.")
         } finally {
-            setLoading(false);
+            setLoading(false)
         }
-    };
+    }
     
     useEffect(() => {
-        fetchActions();
-    }, [page, token, pageSize]);
+        fetchActions()
+    }, [page, token, pageSize])
 
     // Helper para formatear fecha
     const formatDate = (dateString: string) => {
         return new Date(dateString).toLocaleDateString("es-ES", {
             year: 'numeric', month: 'short', day: 'numeric'
-        });
-    };
+        })
+    }
 
     //Refrescar lista tras crear nueva acción
     const handleCreateSuccess = () => {
@@ -130,14 +130,46 @@ export const BakanesActions = () => {
                 {/* TABLA DE DATOS */}
                 {!loading && !error && actions.length > 0 && (
                     <table className="w-full text-left border-collapse">
-                        <thead className="bg-gray-50 text-gray-500 font-bold text-xs uppercase tracking-wide ">
+                        <thead className="bg-gray-50 text-gray-500 font-bold text-xs uppercase tracking-wide">
                             <tr>
-                                <th className="px-6 py-4 border-b border-gray-200">Nombre de la accion</th>
-                                <th className="px-6 py-4 border-b border-gray-200">Icono de la accion</th>
-                                <th className="px-6 py-4 border-b border-gray-200">Estado</th>
-                                <th className="px-6 py-4 border-b border-gray-200 w-1/4">Descripción</th>
-                                <th className="px-6 py-4 border-b border-gray-200">Fecha de creación</th>
-                                <th className="px-6 py-4 border-b border-gray-200 text-center">Acciones</th>
+                                <th className="px-4 py-3 border border-gray-200 cursor-pointer hover:bg-gray-100 transition-colors">
+                                    <div className="flex items-center justify-between group">
+                                        <span>Nombre de la acción</span>
+                                        <ChevronsUpDown size={14} className="text-gray-400 group-hover:text-gray-600" />
+                                    </div>
+                                </th>
+
+                                <th className="px-4 py-3 border border-gray-200 cursor-pointer hover:bg-gray-100 transition-colors">
+                                    <div className="flex items-center justify-between group">
+                                        <span>Icono de la acción</span>
+                                        <ChevronsUpDown size={14} className="text-gray-400 group-hover:text-gray-600" />
+                                    </div>
+                                </th>
+
+                                <th className="px-4 py-3 border border-gray-200 cursor-pointer hover:bg-gray-100 transition-colors">
+                                    <div className="flex items-center justify-between group">
+                                        <span>Estado</span>
+                                        <ChevronsUpDown size={14} className="text-gray-400 group-hover:text-gray-600" />
+                                    </div>
+                                </th>
+
+                                <th className="px-4 py-3 border border-gray-200 w-1/4 cursor-pointer hover:bg-gray-100 transition-colors">
+                                    <div className="flex items-center justify-between group">
+                                        <span>Descripción</span>
+                                        <ChevronsUpDown size={14} className="text-gray-400 group-hover:text-gray-600" />
+                                    </div>
+                                </th>
+
+                                <th className="px-4 py-3 border border-gray-200 cursor-pointer hover:bg-gray-100 transition-colors">
+                                    <div className="flex items-center justify-between group">
+                                        <span>Fecha de creación</span>
+                                        <ChevronsUpDown size={14} className="text-gray-400 group-hover:text-gray-600" />
+                                    </div>
+                                </th>
+
+                                <th className="px-4 py-3 border border-gray-200 text-center bg-gray-50">
+                                    Acciones
+                                </th>
                             </tr>
                         </thead>
                         <tbody className="text-sm text-gray-700 bg-white">
@@ -208,8 +240,8 @@ export const BakanesActions = () => {
                             className="border rounded px-2 py-1 outline-none focus:border-blue-500"
                             value={pageSize}
                             onChange={(e) => {
-                                setPageSize(Number(e.target.value));
-                                setPage(1);
+                                setPageSize(Number(e.target.value))
+                                setPage(1)
                             }}
                         >
                             <option value={10}>10</option>
@@ -259,8 +291,6 @@ export const BakanesActions = () => {
                     </div>
                 )}
             </div>
-            
-
         </div>
-    );
-};
+    )
+}

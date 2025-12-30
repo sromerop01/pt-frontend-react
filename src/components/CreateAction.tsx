@@ -2,21 +2,8 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useAuth } from '../hooks/useAuth'
 import { actionsApi } from '../api/actions.api'
+import type { CreateActionProps, CreateActionsInputs } from '../types/types'
 import { Upload, Loader2 } from 'lucide-react'
-
-interface CreateActionProps {
-  isOpen: boolean
-  onClose: () => void
-  onSuccess: () => void
-}
-
-interface Inputs {
-  name: string
-  description: string
-  icon: FileList
-  color: string
-  isActive: boolean
-}
 
 //paleta de colores permitidos
 const PRESET_COLORS = [
@@ -40,7 +27,7 @@ export const CreateAction: React.FC<CreateActionProps> = ({ isOpen, onClose, onS
         setValue,
         handleSubmit, 
         formState: { errors, isValid }, 
-    } = useForm<Inputs>({mode: "onChange", })
+    } = useForm<CreateActionsInputs>({mode: "onChange", })
 
     const { token } = useAuth()
     const descriptionValue = watch("description") || ""
@@ -50,7 +37,7 @@ export const CreateAction: React.FC<CreateActionProps> = ({ isOpen, onClose, onS
     const [submitError, setSubmitError] = useState<string | null>(null)
     const [loading, setLoading] = useState(false)
 
-    const onSubmit = async (data: Inputs) => {
+    const onSubmit = async (data: CreateActionsInputs) => {
         if (!token) return
         setLoading(true)
         setIsSubmitting(true)

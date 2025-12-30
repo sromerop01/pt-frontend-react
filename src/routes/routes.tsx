@@ -53,4 +53,4 @@ export const routes: RouteObject[] = [
     path: "*",
     element: <div>404 - No encontrado</div>,
   },
-];
+]

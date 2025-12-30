@@ -1,18 +1,13 @@
 import { NavLink } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
 import Logo from "../assets/Logo-color-bg.png";
 import { 
-  House, 
-  ChartSpline, 
-  Users, 
-  BadgeDollarSign, 
-  Store, 
-  CircleStar, 
-  SquareMousePointer, 
-  Package2,
+  House, ChartSpline, Users, BadgeDollarSign, 
+  Store, CircleStar, SquareMousePointer, Package2,
   LogOut
 } from "lucide-react";
 
-import { useAuth } from "../hooks/useAuth";
+
 
 const menuItems = [
   { label: "Home", icon: House, path: "/" },

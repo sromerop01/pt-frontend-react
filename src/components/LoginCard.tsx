@@ -3,13 +3,9 @@ import { useForm } from 'react-hook-form'
 import { useNavigate } from "react-router-dom"
 import { authApi } from "../api/auth.api"
 import { useAuth } from "../hooks/useAuth"
+import type { LoginInputs } from '../types/types'
 import Logo from '../assets/Logo-be-kind.png'
 import { Mail, Lock, Eye, EyeOff, Loader2, AlertCircle } from 'lucide-react'
-
-type Inputs = {
-  email: string
-  password: string
-}
   
 export const LoginCard = () => {
     const { login } = useAuth()
@@ -22,9 +18,9 @@ export const LoginCard = () => {
         register, 
         handleSubmit, 
         formState: { errors, isValid }, 
-    } = useForm<Inputs>({mode: "onChange", })
+    } = useForm<LoginInputs>({mode: "onChange", })
 
-    const onSubmit = async (data: Inputs) => {
+    const onSubmit = async (data: LoginInputs) => {
       try {
         setLoading(true)
         setError("")
